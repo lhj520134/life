@@ -9,13 +9,13 @@ angular.module('myApp.login', ['ngRoute'])
   });
 }])
 
-.controller('loginCtrl', function($scope,$state) {
+.controller('loginCtrl', function($scope,$http) {
       $scope.user = {
         Number:'14631818',
         Password:'123'
       }
       $scope.login = function() {
-        alert(';111');
+          //alert('33');
         $http.get('http://huyugui.eicp.net:4343/manage_login', {
           params: {
             Number:$scope.user.Number,
@@ -24,9 +24,9 @@ angular.module('myApp.login', ['ngRoute'])
         })
             .success(function (data) {
               if(data === "请输入正确的信息"){
-
+                  alert(data)
               }else{
-                $state.go('./index.html');
+                  alert('登录成功')
               }
             })
       };

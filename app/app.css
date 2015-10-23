@@ -80,7 +80,7 @@ body {
 .bottom {
   height: 5px;
   line-height: 5px;
-  background: #00a5a5;
+  background: #5e5e5e;
   width: 100%;
   position: fixed;
   z-index: 255;

@@ -11,6 +11,7 @@ angular.module('myApp.doctor', ['NewfileDialog', 'datePicker', 'angularModalServ
         });
     }])
     .controller('CheckCommentModalCtrl',function($scope,close,SERVER,$http,entity){
+        alert( window.localStorage['ClassId']);
         $scope.gridOptions2 = {
             enableRowSelection: true,
             enableRowHeaderSelection: false,
