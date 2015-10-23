@@ -5,7 +5,7 @@ angular.module('myApp', [
     'ngRoute',
     'myApp.doctor',
     'myApp.question',
-    'myApp.login',
+    'myApp.truancy',
     'myApp.version'
 ]).
     config(['$routeProvider', function ($routeProvider) {
