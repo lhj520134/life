@@ -15,27 +15,37 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
     })
     .controller('signCtrl', function ($scope, $http,ModalService) {
 
-
-        $scope.BeginDay = '12';
-        $scope.ClassName = '2';
+        var example = [
+            {
+                BeginWeek:'2',
+                EndWeek:'3',
+                BeginSubjectDate:'7:50',
+                EndSubjectDate:'10:30',
+                SubjectName:'计算机基础',
+                SubjectTeacher:'康康',
+                Build:'S3',
+                ClassRoom:'214'
+            }
+        ]
+        $scope.BeginDay = '';
+        $scope.ClassName = '';
         var time = [
             {
                 BeginWeek:'2',
                 EndWeek:'3',
-                BeginSubjectDate:'1',
-                EndSubjectDate:'2',
-                SubjectName:'2',
-                SubjectTeacher:'1',
-                Build:'1',
-                ClassRoom:'1'
+                BeginSubjectDate:'7:50',
+                EndSubjectDate:'10:30',
+                SubjectName:'计算机基础',
+                SubjectTeacher:'康康',
+                Build:'S3',
+                ClassRoom:'214',
+                TodayWeek:'2'
+
             }
         ]
         //console.log(time)
         //alert($scope.time[0]);
 
-        $scope.add = function () {
-            grid.setColumns(columns);
-        }
 
 
 
@@ -47,15 +57,31 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
         $scope.addData = function() {
             var n = $scope.gridOptions.data.length + 1;
             $scope.gridOptions.data.push({
-                "BeginWeek": "New " + n,
-                "lastName": "Person " + n,
-                "company": "abc",
-                "employed": true,
-                "gender": "male"
+                BeginWeek: "New " + n,
+                EndWeek:"New " + n,
+                BeginSubjectDate:'blank',
+                EndSubjectDate:'blank',
+                SubjectName:'blank',
+                SubjectTeacher:'blank',
+                Build:'blank',
+                ClassRoom:'blank',
+                TodayWeek:'blank'
             });
             console.log($scope.gridOptions.data)
             console.log($scope.gridOptions.data[2])
         };
+
+        $scope.save = function () {
+            $http.post('http://172.16.20.110:3000/ImportSignIn', $scope.gridOptions.data,$scope.BeginDay,$scope.ClassName)
+                .success(function (data) {
+
+                alert("保存成功")
+            }).error(function (data) {
+
+            }).finally(function () {
+
+            });
+        }
 
         $scope.gridOptions = {
             paginationPageSizes: [20, 50, 75],
@@ -66,34 +92,49 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
             columnDefs: [
                 {
                     name: '课程名',
-                    field: 'BeginWeek'
+                    field: 'SubjectName'
                     //footerCellTemplate: '<div class="ui-grid-cell-contents" ng-click="" ><a ng-click="add()">增加</a></div>'
                 },
                 {
                     name: '星期',
-                    field: 'BeginWeek'
+                    field: 'TodayWeek'
 
                     //field: 'Number'
                     //footerCellTemplate: '<div class="ui-grid-cell-contents" ng-click="" ><a ng-click=" $event.stopPropagation();grid.appScope.add()">增加</a></div>'
                 },
                 {
-                    name:'上课时间',
+                    name:'上课开始时间',
+                    field: 'BeginSubjectDate'
+
+                },
+                {
+                    name:'上课结束时间',
+                    field: 'EndSubjectDate'
+
+                },
+                {
+                    name:'上课周期开始周',
                     field: 'BeginWeek'
 
                 },
                 {
-                    name:'上课周期',
-                    field: 'BeginWeek'
+                    name:'上课周期结束周',
+                    field: 'EndWeek'
 
                 },
                 {
                     name:'任课老师',
-                    field: 'BeginWeek'
+                    field: 'SubjectTeacher'
 
                 },
                 {
                     name:'上课地点',
-                    field: 'BeginWeek'
+                    field: 'Build'
+
+                },
+                {
+                    name:'具体教室',
+                    field: 'ClassRoom'
 
                 }
 
