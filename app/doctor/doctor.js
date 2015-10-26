@@ -301,6 +301,7 @@ angular.module('myApp.doctor', ['NewfileDialog', 'datePicker', 'angularModalServ
         }
             $scope.add = function () {
                 //
+
                 var doc = {
                     name: '王二',
                     sex: '男',

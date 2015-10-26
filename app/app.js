@@ -6,7 +6,8 @@ angular.module('myApp', [
     'myApp.doctor',
     'myApp.question',
     'myApp.truancy',
-    'myApp.version'
+    'myApp.version',
+    'myApp.sign'
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/view2'});

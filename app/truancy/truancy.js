@@ -39,7 +39,7 @@ angular.module('myApp.truancy', ['ngRoute','NewfileDialog', 'datePicker', 'angul
 
                 gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
                     rowEntity[colDef.field] = newValue;
-                    updateDoctor(rowEntity);
+                    //updateDoctor(rowEntity);
                 });
                 gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
                     if (paginationOptions.pageSize != pageSize) {
@@ -63,6 +63,7 @@ angular.module('myApp.truancy', ['ngRoute','NewfileDialog', 'datePicker', 'angul
             }).success(function (data) {
                 console.log(data);
                 $scope.gridOptions.data = data;
+                //alert(data)
             }).error(function (data) {
 
             }).finally(function () {
