@@ -9,6 +9,7 @@ angular.module('myApp', [
     'myApp.version',
     'myApp.sign'
 
+
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/view2'});

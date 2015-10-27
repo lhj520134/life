@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+
 <div class=“row”>
     <div><h2>签到表</h2></div>
 
     <div>
         <div id="grid1" ui-grid="gridOptions" ui-grid-edit ui-grid-cellNav external-scopes="clickHandler"  ui-grid-pagination class="grid"></div>
     </div>
+    <div style="margin-top: 10px;">
+        <button class="btn btn-large btn-info" ng-click="addData()" style="border: 0;border-radius: 0">录入</button>
+        <button class="btn btn-large btn-success" style="border: 0;border-radius: 0" ng-click="determinemodal()">保存</button>
+    </div>
 
-    <button style="width: 100px;height:50px;text-align: center;background-color: rgba(10, 155, 153, 0.69);color: rgb(0, 0, 0)" ng-click="addData()">录入</button>
-    <button style="width: 100px;height:50px;text-align: center;background-color: rgba(10, 155, 153, 0.69);color: rgb(0, 0, 0)" ng-click="save()">保存</button>
 </div>
-</body>
-</html>
