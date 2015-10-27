@@ -15,20 +15,9 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
     })
     .controller('signCtrl', function ($scope, $http,ModalService) {
 
-        var example = [
-            {
-                BeginWeek:'2',
-                EndWeek:'3',
-                BeginSubjectDate:'7:50',
-                EndSubjectDate:'10:30',
-                SubjectName:'计算机基础',
-                SubjectTeacher:'康康',
-                Build:'S3',
-                ClassRoom:'214'
-            }
-        ]
         $scope.BeginDay = '';
         $scope.ClassName = '';
+
         var time = [
             {
                 BeginWeek:'2',
@@ -39,21 +28,18 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
                 SubjectTeacher:'康康',
                 Build:'S3',
                 ClassRoom:'214',
-                TodayWeek:'2'
+                TodayWeek:'0'
 
             }
         ]
-        //console.log(time)
-        //alert($scope.time[0]);
-
-
-
 
         var paginationOptions = {
             pageNumber: 1,
             pageSize: 25,
             totalPage: 1
         };
+
+        //增加行数
         $scope.addData = function() {
             var n = $scope.gridOptions.data.length + 1;
             $scope.gridOptions.data.push({
@@ -65,12 +51,13 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
                 SubjectTeacher:'blank',
                 Build:'blank',
                 ClassRoom:'blank',
-                TodayWeek:'blank'
+                TodayWeek:'0'
             });
-            console.log($scope.gridOptions.data)
+            console.log($scope.gridOptions.data);
             console.log($scope.gridOptions.data[2])
         };
 
+        //保存数据
         $scope.save = function () {
             $http.post('http://172.16.20.110:3000/ImportSignIn', $scope.gridOptions.data,$scope.BeginDay,$scope.ClassName)
                 .success(function (data) {
@@ -83,6 +70,7 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
             });
         }
 
+        //创建表格
         $scope.gridOptions = {
             paginationPageSizes: [20, 50, 75],
             paginationPageSize: 25,
@@ -97,14 +85,13 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
                 },
                 {
                     name: '星期',
-                    field: 'TodayWeek'
-
-                    //field: 'Number'
-                    //footerCellTemplate: '<div class="ui-grid-cell-contents" ng-click="" ><a ng-click=" $event.stopPropagation();grid.appScope.add()">增加</a></div>'
+                    field: 'TodayWeek',
+                    cellTemplate: '<select ng-model="row.entity.TodayWeek" style="background-color:white;width: 100%;border-radius: 0;height: 100%;border: 0;"><option value="0">请选择</option><option  value ="1">星期一</option><option value ="2">星期二</option><option value="3">星期三</option><option value="4">星期四</option><option value="5">星期五</option> </select>  '
                 },
                 {
                     name:'上课开始时间',
-                    field: 'BeginSubjectDate'
+                    field: 'BeginSubjectDate',
+                    cellTemplate:'<select ng-model="row.entity.BeginSubjectDate" style="background-color:white;width: 100%;border-radius: 0;height: 100%;border: 0;">'
 
                 },
                 {
