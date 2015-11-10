@@ -1,8 +1,13 @@
 
 <div class=“row”>
     <div><h2>签到表</h2></div>
-
     <div>
+        班级名称：<input ng-model="ff.ClassName" style="margin-top: 10px;margin-bottom: 10px" type="text"></div>
+    <div style="margin-top: 10px;margin-bottom: 10px">
+        开课时间：<input type="date" ng-model="ff.BeginDay">
+        <div>
+               <!--ng-click="opendateModal()"-->
+
         <div id="grid1" ui-grid="gridOptions" ui-grid-edit ui-grid-cellNav external-scopes="clickHandler"  ui-grid-pagination class="grid"></div>
     </div>
     <div style="margin-top: 10px;">
@@ -11,3 +16,6 @@
     </div>
 
 </div>
+
+
+

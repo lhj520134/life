@@ -3,35 +3,54 @@
  */
 'use strict';
 
-angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angularModalService', 'ngFileUpload', 'cgBusy', 'ngRoute', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.treeView', 'ui.grid.selection', 'ui.grid.pagination'])
+angular.module('myApp.sign', ['pickadate','ngRoute', 'NewfileDialog', 'datePicker', 'angularModalService', 'ngFileUpload', 'cgBusy', 'ngRoute', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.treeView', 'ui.grid.selection', 'ui.grid.pagination'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/sign', {
             templateUrl: 'Sign/sign.html',
             controller: 'signCtrl'
         });
     }])
-    .controller('writeinCtrl', function ($scope, $http) {
 
-    })
     .controller('signCtrl', function ($scope, $http,ModalService) {
 
         $scope.BeginDay = '';
         $scope.ClassName = '';
 
-        var time = [
-            {
-                BeginWeek:'2',
-                EndWeek:'3',
-                BeginSubjectDate:'8:10',
-                EndSubjectDate:'9:50',
-                SubjectName:'计算机基础',
-                SubjectTeacher:'康康',
-                Build:'S3',
-                ClassRoom:'214',
-                TodayWeek:'星期一'
+        $scope.ff = {
+            BeginDay : '',
+            ClassName : '',
+            time: [
 
-            }
-        ]
+                {
+                    BeginWeek: '2',
+                    EndWeek: '3',
+                    BeginSubjectDate: '8:10',
+                    EndSubjectDate: '9:50',
+                    SubjectName: '计算机基础',
+                    SubjectTeacher: '康康',
+                    Build: 'S3',
+                    ClassRoom: '214',
+                    TodayWeek: '星期一'
+                }
+            ]
+
+        }
+
+
+
+    //    var time = [
+    //        {
+    //            BeginWeek:'2',
+    //            EndWeek:'3',
+    //            BeginSubjectDate:'8:10',
+    //            EndSubjectDate:'9:50',
+    //            SubjectName:'计算机基础',
+    //            SubjectTeacher:'康康',
+    //            Build:'S3',
+    //            ClassRoom:'214',
+    //            TodayWeek:'星期一'
+    //        }
+    //]
 
         var paginationOptions = {
             pageNumber: 1,
@@ -42,7 +61,7 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
         //增加行数
         $scope.addData = function() {
             var n = $scope.gridOptions.data.length + 1;
-            $scope.gridOptions.data.push({
+            $scope.ff.time.push({
                 BeginWeek: "New",
                 EndWeek:"New",
                 BeginSubjectDate:'0',
@@ -57,18 +76,7 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
             console.log($scope.gridOptions.data[2])
         };
 
-        //保存数据
-        //$scope.save = function () {
-        //    $http.post('http://172.16.20.110:3000/ImportSignIn', $scope.gridOptions.data,$scope.BeginDay,$scope.ClassName)
-        //        .success(function (data) {
-        //
-        //        alert("保存成功")
-        //    }).error(function (data) {
-        //
-        //    }).finally(function () {
-        //
-        //    });
-        //}
+
 
         //创建表格
         $scope.gridOptions = {
@@ -91,7 +99,7 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
                 {
                     name:'上课开始时间',
                     field: 'BeginSubjectDate',
-                    cellTemplate:'<select ng-model="row.entity.BeginSubjectDate" style="background-color:white;width: 100%;border-radius: 0;height: 100%;border: 0;"><option value="0">请选择</option><option value="8:10">第一节</option><option value="10:10">第三节</option><option value="14:30">第五节</option><option value="19:00">第八节</option></select>'
+                    cellTemplate:'<select ng-model="row.entity.BeginSubjectDate" style="background-color:white;width: 100%;border-radius: 0;height: 100%;border: 0;"><option value="0">请选择</option><option value="8:00">第一节</option><option value="10:00">第三节</option><option value="14:20">第五节</option><option value="18:50">第八节</option></select>'
 
                 },
                 {
@@ -147,10 +155,31 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
                     //loaction();
                     //console.log(time)
                 });
-                $scope.gridOptions.data = time;
+                $scope.gridOptions.data = $scope.ff.time;
             }
 
         }
+
+        $scope.opendateModal = function () {
+            ModalService.showModal({
+                templateUrl: "Sign/datepick.html",
+                controller: "datepickCtrl",
+                scope: $scope
+            }).then(function (modal1) {
+                //$scope.datemodal = modal;
+                modal1.element.modal();
+                modal1.close.then(function (result) {
+                console.log(result);
+                    if(result !== ''){
+                       $scope.ff.BeginDay = result;
+                        console.log($scope.ff.BeginDay)
+                        //$scope.datemodal.hide();
+                        //document.getElementById('sd').style.display = "none";
+                    }
+                });
+            });
+        }
+
         $scope.determinemodal = function () {
             //    BeginWeek: "New " + n,
             //    EndWeek:"New " + n,
@@ -173,7 +202,9 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
                 || $scope.gridOptions.data[i].SubjectTeacher == 'blank'
                 || $scope.gridOptions.data[i].Build == '0'
                 || $scope.gridOptions.data[i].ClassRoom == 'blank'
-                || $scope.gridOptions.data[i].TodayWeek == '0')
+                || $scope.gridOptions.data[i].TodayWeek == '0'
+                || $scope.ff.BeginDay == ''
+                || $scope.ff.ClassName == '')
                 {
                     Fill = 1;
                     break;
@@ -189,7 +220,7 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
                     modal.close.then(function (result) {
                         if (result == "Yes") {
                             //
-                            $http.post('http://172.16.20.110:3000/ImportSignIn', $scope.gridOptions.data,$scope.BeginDay,$scope.ClassName)
+                            $http.post('http://172.16.20.110:3000/ImportSignIn', $scope.ff)
                                 .success(function (data) {
                                     alert("保存成功")
                                 }).error(function (data) {
@@ -207,11 +238,12 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
                     templateUrl: "Sign/determinemodal.html",
                     controller: "DetermineCtrl"
                 }).then(function (modal) {
+
                     modal.element.modal();
                     modal.close.then(function (result) {
                         if (result == "Yes") {
                             //
-                            $http.post('http://172.16.20.110:3000/ImportSignIn', $scope.gridOptions.data,$scope.BeginDay,$scope.ClassName)
+                            $http.post('http://172.16.20.110:3000/ImportSignIn', $scope.ff)
                                 .success(function (data) {
                                     alert("保存成功")
                                 }).error(function (data) {
@@ -224,11 +256,6 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
                     });
                 });
             }
-
-
-
-
-
         }
 
     })
@@ -237,5 +264,15 @@ angular.module('myApp.sign', ['ngRoute', 'NewfileDialog', 'datePicker', 'angular
         $scope.closeModal = function (result) {
             window.localStorage['ngshow'] = '';
             close(result, 500);
+        };
+    })
+    .controller('datepickCtrl',function($scope,close){
+
+        $scope.closeModal = function (result) {
+
+            console.log(result);
+
+
+            close(result, 100);
         };
     })

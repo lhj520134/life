@@ -7,8 +7,9 @@ angular.module('myApp', [
     'myApp.question',
     'myApp.truancy',
     'myApp.version',
-    'myApp.sign'
-
+    'myApp.sign',
+    'myApp.import',
+    'myApp.student'
 
 ]).
     config(['$routeProvider', function ($routeProvider) {

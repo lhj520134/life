@@ -153,7 +153,7 @@ angular.module('myApp.question', ['myApp','NewfileDialog', 'cgBusy', 'angularMod
             });
         }
         $scope.delete = function (entity) {
-            $scope.myPromise = $http.delete(SERVER.URL+'/questions', {params: entity}).success(function (data) {
+            $http.delete(SERVER.URL+'/questions', {params: entity}).success(function (data) {
                 //
                 getTatalPage();
                 getPage();
@@ -388,7 +388,7 @@ angular.module('myApp.question', ['myApp','NewfileDialog', 'cgBusy', 'angularMod
             });
         }
         var getTatalPage = function () {
-            $scope.myPromise = $http.get(SERVER.URL+'/questions/count', {params: {"categorys[]": $scope.categorys}}).success(function (data) {
+           $http.get(SERVER.URL+'/questions/count', {params: {"categorys[]": $scope.categorys}}).success(function (data) {
                 $scope.gridOptions2.totalItems = data;
             }).error(function (data) {
 
@@ -397,7 +397,7 @@ angular.module('myApp.question', ['myApp','NewfileDialog', 'cgBusy', 'angularMod
         //加载
         var getPage = function () {
             //var url = "http://"
-            $scope.myPromise = $http.get(SERVER.URL+'/questions', {
+            $http.get(SERVER.URL+'/questions', {
                 params: {
                     pageNo: paginationOptions.pageNumber,
                     pageNumber: paginationOptions.pageSize,

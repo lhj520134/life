@@ -74,6 +74,7 @@
                             alert(data)
                         }else{
                             window.localStorage['ClassId'] = data.Classes[0];
+                            window.localStorage['TeacherId'] = data._id;
                             window.location.href='index.html';
                         }
                     })

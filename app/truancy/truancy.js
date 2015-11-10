@@ -56,7 +56,7 @@ angular.module('myApp.truancy', ['ngRoute','NewfileDialog', 'datePicker', 'angul
         var loaction = function () {
 
 
-            $http.get('http://huyugui.eicp.net:4343/getSignIn', {
+            $scope.myPromise = $http.get('http://huyugui.eicp.net:4343/getSignIn', {
                 params: {
                     ClassId:window.localStorage['ClassId']
                 }

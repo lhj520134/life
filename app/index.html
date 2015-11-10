@@ -17,8 +17,9 @@
     <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.min.css">
     <link rel="stylesheet" type="text/css" href="bower_components/angular-busy/dist/angular-busy.css">
     <link rel="stylesheet" type="text/css" href="bower_components/angular-datepicker/dist/angular-datepicker.min.css">
-    <link rel="stylesheet" type="text/css" href="Sign/loading-bar.css">
-    <script src="Sign/loading-bar.js"></script>
+    <link rel="stylesheet" type="text/css" href="Sign/datePicker/css/angular-pickadate.css">
+    <!--<link rel="stylesheet" type="text/css" href="Sign/loading-bar.css">-->
+    <!--<script src="Sign/loading-bar.js"></script>-->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -32,11 +33,16 @@
     <script src="bower_components/angular-datepicker/dist/angular-datepicker.min.js"></script>
 
     <script src="nw-fileDialog.js"></script>
+    <script src="Sign/datePicker/js/angular-pickadate.js"></script>
     <script src="app.js"></script>
     <script src="doctor/doctor.js"></script>
+    <script src="student/student.js"></script>
     <script src="question/question.js"></script>
     <script src="truancy/truancy.js"></script>
     <script src="Sign/sign.js"></script>
+    <script src="import/import.js"></script>
+    <script src="angular-down-file-directive.js"></script>
+    <script src="FileSaver.min.js"></script>
     <script src="bower_components/ckeditor/ckeditor.js"></script>
     <script src="components/version/version.js"></script>
     <script src="components/version/version-directive.js"></script>
@@ -106,6 +112,12 @@
             </li>
             <li>
                 <h4><a href="#/sign">录入签到表</a></h4>
+            </li>
+            <li>
+                <h4><a href="#/import">录入学生信息</a></h4>
+            </li>
+            <li>
+                <h4><a href="#/student">查看学生信息</a></h4>
             </li>
 
         </ul>
