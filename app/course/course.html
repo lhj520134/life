@@ -22,11 +22,16 @@
         <option ng-repeat="ds in Classes" value="{{ds._id}}">{{ds.ClassName}}</option>
     </select>
     </div>
+    <div style="margin-top: 10px">
+        选择老师： <select ng-model="Message.teacher" ng-change="change3(Message.teacher)" style="height: 200px;width: 20%">
+        <option ng-repeat="ds in teacher" value="{{ds}}">{{ds}}</option>
+    </select>
+    </div>
     <div>
         <div id="grid1" ui-grid="gridOptions" ui-grid-edit ui-grid-cellNav external-scopes="clickHandler"  ui-grid-pagination class="grid"></div>
-
     </div>
     <div cg-busy="myPromise"></div>
+    <button type="button" class="btn btn-success" ng-click="add()">添加课程</button>
 </div>
 </body>
 </html>

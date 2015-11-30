@@ -4,12 +4,12 @@
 angular.module('myApp', [
     'ngRoute',
     'myApp.doctor',
-    'myApp.question',
     'myApp.truancy',
     'myApp.version',
     'myApp.sign',
     'myApp.import',
-    'myApp.student'
+    'myApp.student',
+    'myApp.course'
 
 ]).
     config(['$routeProvider', function ($routeProvider) {

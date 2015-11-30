@@ -266,13 +266,4 @@ angular.module('myApp.sign', ['pickadate','ngRoute', 'NewfileDialog', 'datePicke
             close(result, 500);
         };
     })
-    .controller('datepickCtrl',function($scope,close){
 
-        $scope.closeModal = function (result) {
-
-            console.log(result);
-
-
-            close(result, 100);
-        };
-    })
